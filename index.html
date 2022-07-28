@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="box">
+        <div class="box-content">
+            <div class="mainTime">
+                <span class="minute">00:</span><span class="second">00:</span><span class="milisec">00</span>
+            </div>
+            <span class="split"> SPLIT TIME</span>
+            <div class="btns">
+                <button id="start" onclick="start();">Start</button>
+                <button id="stop" onclick="stop();">Split</button>
+                <button id="reset" onclick="reset();">Reset</button>
+            </div>
+            
+        </div>
+        <div class="splitData">
+            <span>id</span> <span>split time</span> <span>split status</span>
+        </div>
+
+    </div>
+<script>
+    let [msec , sec, min] = [0,0,0];
+let timerRef = document.querySelector('.mainTime');
+let int = null;
+
+document.getElementById('start').addEventListener('click' , ()=>{
+    if(int != null){
+        clearInterval(int);
+    }
+    int = setInterval(mainTime , 10);
+});
+document.getElementById('stop').addEventListener('click',()=>{
+    clearInterval(int);
+});
+document.getElementById('reset').addEventListener('click', ()=>{
+    clearInterval('int');
+    [msec , sec, min ]=[0,0,0];
+    timerRef.innerHTML='00 : 00: 00';
+})
+function mainTime(){
+    msec+=10;
+    if(msec == 1000){
+    msec = 0;
+    sec++;
+    if(sec == 60){
+    sec = 0;
+    min++;
+    if(min == 60){
+    min = 0;
+    }
+    }
+    }
+
+let m = min < 10 ? "0" + min: min;
+let s = sec< 10 ? "0" + sec : sec;
+let ms = msec < 10 ? "00" + msec : msec < 100 ? "0" + msec : msec;
+
+timerRef.innerHTML = ` ${m} : ${s} : ${ms}`;
+}
+</script>
+</body>
+</html>
