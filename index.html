@@ -21,13 +21,13 @@
             </div>
             
         </div>
-        <div class="splitData">
-            <span>id</span> <span>split time</span> <span>split status</span>
+        <div class="splitData" id="demo">
+           
         </div>
 
     </div>
 <script>
-    let [msec , sec, min] = [0,0,0];
+    let [min , sec, msec] = [0,0,0];
 let timerRef = document.querySelector('.mainTime');
 let int = null;
 
@@ -36,14 +36,20 @@ document.getElementById('start').addEventListener('click' , ()=>{
         clearInterval(int);
     }
     int = setInterval(mainTime , 10);
+    
 });
 document.getElementById('stop').addEventListener('click',()=>{
     clearInterval(int);
+    var id = 0;
+     id++;
+    document.getElementById("demo").innerHTML = "Split Time: "+[min , sec , msec] + " status: Pause";
 });
+
 document.getElementById('reset').addEventListener('click', ()=>{
+    
     clearInterval('int');
-    [msec , sec, min ]=[0,0,0];
-    timerRef.innerHTML='00 : 00: 00';
+    [min , sec, msec ]=[0,0,0];
+    timerRef.innerHTML='00:00:00';
 })
 function mainTime(){
     msec+=10;
@@ -61,10 +67,11 @@ function mainTime(){
 
 let m = min < 10 ? "0" + min: min;
 let s = sec< 10 ? "0" + sec : sec;
-let ms = msec < 10 ? "00" + msec : msec < 100 ? "0" + msec : msec;
+let ms3 = msec < 10 ? "00" + msec : msec < 100 ? "0" + msec : msec;
 
-timerRef.innerHTML = ` ${m} : ${s} : ${ms}`;
+timerRef.innerHTML = `${m}:${s}:${ms3}`;
 }
 </script>
 </body>
 </html>
+<!-- https://github.com/Qasmi2/handbooks/blob/master/Frontend/Assignments/stopwatch/README.md -->
